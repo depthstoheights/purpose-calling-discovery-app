@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Purpose & Calling Discovery - Find Your God-Given Direction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --indigo: #4F46E5;
+            --violet: #7C3AED;
+            --sunset: #FB923C;
+            --amber: #FCD34D;
+            --sky: #38BDF8;
+            --rose: #FB7185;
+            --deep-indigo: #312E81;
+            --light-violet: #EDE9FE;
+            --light-sunset: #FED7AA;
+            --cream: #FFFBF0;
+            --slate: #475569;
+            --text: #334155;
+            --white: #FFFFFF;
+            --shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
+            --gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #FB923C 100%);
+            --sunset-gradient: linear-gradient(135deg, #FB923C 0%, #FCD34D 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #EDE9FE 0%, #FED7AA 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 75px;
+        }
+
+        .screen {
+            display: none;
+            min-height: calc(100vh - 75px);
+            padding: 15px;
+            animation: fadeInScale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: scale(0.95);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .welcome-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .welcome-icon {
+            font-size: 90px;
+            margin-bottom: 30px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(251, 146, 60, 0.3));
+        }
+
+        .hero-header {
+            background: var(--gradient);
+            color: white;
+            padding: 30px 25px;
+            border-radius: 24px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-header::before,
+        .hero-header::after {
+            content: '✨';
+            position: absolute;
+            font-size: 20px;
+            animation: sparkle 2s infinite;
+        }
+
+        .hero-header::before {
+            top: 20px;
+            left: 20px;
+            animation-delay: 0s;
+        }
+
+        .hero-header::after {
+            bottom: 20px;
+            right: 20px;
+            animation-delay: 1s;
+        }
+
+        .hero-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-header p {
+            font-size: 16px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .audio-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .audio-toggle:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .purpose-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .purpose-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.15);
+            border-color: var(--light-violet);
+        }
+
+        .discovery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin: 25px 0;
+        }
+
+        .discovery-tile {
+            background: linear-gradient(135deg, var(--indigo), var(--violet));
+            color: white;
+            padding: 25px 15px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .discovery-tile::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .discovery-tile:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translateY(20px);
+        }
+
+        .discovery-tile:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .discovery-tile:nth-child(even) {
+            background: var(--sunset-gradient);
+            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
+        }
+
+        .discovery-tile:nth-child(even):hover {
+            box-shadow: 0 8px 20px rgba(251, 146, 60, 0.4);
+        }
+
+        .discovery-tile .icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .discovery-tile h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .discovery-tile p {
+            font-size: 12px;
+            opacity: 0.95;
+        }
+
+        .btn-discover {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            display: inline-block;
+            text-decoration: none;
+            margin: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-discover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--indigo);
+            border: 2px solid var(--indigo);
+            padding: 13px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            margin: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-violet);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-sunset {
+            background: var(--sunset-gradient);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(251, 146, 60, 0.3);
+            display: inline-block;
+            text-decoration: none;
+            margin: 8px;
+        }
+
+        .btn-sunset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 146, 60, 0.4);
+        }
+
+        .assessment-question {
+            background: var(--light-violet);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--indigo);
+        }
+
+        .assessment-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .scale-option {
+            flex: 1;
+            background: white;
+            border: 2px solid #E5E7EB;
+            padding: 15px 10px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .scale-option:hover {
+            border-color: var(--indigo);
+            background: var(--light-violet);
+            transform: translateY(-2px);
+        }
+
+        .scale-option.selected {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--indigo);
+            transform: scale(1.05);
+        }
+
+        .gift-result {
+            background: linear-gradient(135deg, var(--light-violet), white);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 2px solid var(--indigo);
+        }
+
+        .gift-score {
+            font-size: 48px;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .calling-worksheet {
+            background: var(--cream);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 2px dashed var(--sunset);
+        }
+
+        .worksheet-prompt {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .reflection-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 16px;
+            border: 2px solid var(--light-violet);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: all 0.3s;
+            line-height: 1.6;
+        }
+
+        .reflection-textarea:focus {
+            outline: none;
+            border-color: var(--indigo);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .step-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--sunset);
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .step-number {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            background: var(--sunset-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(251, 146, 60, 0.3);
+        }
+
+        .scripture-highlight {
+            background: linear-gradient(135deg, var(--light-sunset), white);
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid var(--sunset);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 17px;
+            position: relative;
+        }
+
+        .scripture-highlight::before {
+            content: '📖';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            opacity: 0.3;
+        }
+
+        .progress-circle {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percentage {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--indigo);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-top: 1px solid rgba(79, 70, 229, 0.1);
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--slate);
+            position: relative;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s;
+        }
+
+        .nav-item:hover::before,
+        .nav-item.active::before {
+            width: 60%;
+        }
+
+        .nav-item:hover {
+            color: var(--indigo);
+            background: var(--light-violet);
+        }
+
+        .nav-item.active {
+            color: var(--indigo);
+        }
+
+        .nav-item .icon {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .nav-item .label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(31, 46, 129, 0.9);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { 
+                transform: translateY(50px); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateY(0); 
+                opacity: 1; 
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--light-violet);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--indigo);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--indigo);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, var(--indigo), var(--violet));
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            animation: fadeInScale 0.5s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .milestone-badge {
+            display: inline-block;
+            background: var(--sunset-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px;
+            box-shadow: 0 3px 10px rgba(251, 146, 60, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .hero-header h1 { font-size: 24px; }
+            .discovery-grid { grid-template-columns: repeat(2, 1fr); }
+            .assessment-scale { flex-direction: column; }
+            .scale-option { width: 100%; }
+            .modal-content { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="screen active">
+        <div class="welcome-container">
+            <div class="welcome-icon">🎯✨</div>
+            <h1 style="color: var(--deep-indigo); font-size: 36px; margin-bottom: 20px; font-weight: 700;">
+                Discover Your Divine Purpose
+            </h1>
+            <p style="color: var(--text); line-height: 1.8; font-size: 18px; margin-bottom: 30px;">
+                God has uniquely gifted you with talents, passions, and a calling. 
+                This journey will help you discover your spiritual gifts, clarify your purpose, 
+                and create an action plan for your next steps in ministry and career.
+            </p>
+            <div class="scripture-highlight">
+                "For we are God's handiwork, created in Christ Jesus to do good works, 
+                which God prepared in advance for us to do."
+                <br><strong>- Ephesians 2:10</strong>
+            </div>
+            <button class="btn-discover" onclick="startJourney()">Begin Your Purpose Journey</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Your Purpose Dashboard</h1>
+            <p id="dashboardDate"></p>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Your Discovery Journey</h2>
+            <div class="progress-circle">
+                <svg width="150" height="150">
+                    <circle cx="75" cy="75" r="65" fill="none" stroke="#E5E7EB" stroke-width="12"/>
+                    <circle id="progressCircle" cx="75" cy="75" r="65" fill="none" stroke="url(#progressGradient)" 
+                            stroke-width="12" stroke-dasharray="408" stroke-dashoffset="408"/>
+                    <defs>
+                        <linearGradient id="progressGradient">
+                            <stop offset="0%" stop-color="#4F46E5"/>
+                            <stop offset="50%" stop-color="#7C3AED"/>
+                            <stop offset="100%" stop-color="#FB923C"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="progress-circle-text">
+                    <div class="progress-percentage" id="progressPercent">0%</div>
+                    <div class="progress-label">Complete</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="discovery-grid">
+            <div class="discovery-tile" onclick="showScreen('giftsScreen')">
+                <span class="icon">🎁</span>
+                <h3>Spiritual Gifts</h3>
+                <p>Discover your gifts</p>
+            </div>
+            <div class="discovery-tile" onclick="showScreen('passionScreen')">
+                <span class="icon">🔥</span>
+                <h3>Passions</h3>
+                <p>What drives you</p>
+            </div>
+            <div class="discovery-tile" onclick="showScreen('callingScreen')">
+                <span class="icon">📞</span>
+                <h3>Calling</h3>
+                <p>Your life mission</p>
+            </div>
+            <div class="discovery-tile" onclick="showScreen('worksheetScreen')">
+                <span class="icon">📝</span>
+                <h3>Worksheets</h3>
+                <p>Guided exercises</p>
+            </div>
+            <div class="discovery-tile" onclick="showScreen('journalScreen')">
+                <span class="icon">📔</span>
+                <h3>Journal</h3>
+                <p>Reflect & record</p>
+            </div>
+            <div class="discovery-tile" onclick="showScreen('plannerScreen')">
+                <span class="icon">🗺️</span>
+                <h3>Next Steps</h3>
+                <p>Action plan</p>
+            </div>
+        </div>
+
+        <div class="purpose-card" style="background: linear-gradient(135deg, var(--light-sunset), white);">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 15px;">Today's Purpose Prompt</h3>
+            <p style="line-height: 1.8; color: var(--text);" id="dailyPrompt"></p>
+        </div>
+    </div>
+
+    <!-- Spiritual Gifts Assessment Screen -->
+    <div id="giftsScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Spiritual Gifts Assessment</h1>
+            <p>Discover how God has equipped you</p>
+        </div>
+
+        <div class="scripture-highlight">
+            "There are different kinds of gifts, but the same Spirit distributes them."
+            <br><strong>- 1 Corinthians 12:4</strong>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Rate Each Statement</h2>
+            <p style="color: var(--text); margin-bottom: 20px;">
+                How much does each statement describe you? (1 = Never, 5 = Always)
+            </p>
+
+            <div id="giftQuestions"></div>
+
+            <button class="btn-discover" onclick="calculateGifts()" style="width: 100%; margin-top: 20px;">
+                Calculate My Spiritual Gifts
+            </button>
+        </div>
+
+        <div id="giftResults" style="display: none;">
+            <div class="purpose-card">
+                <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Your Top Spiritual Gifts</h2>
+                <div id="topGifts"></div>
+            </div>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Passions Discovery Screen -->
+    <div id="passionScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Discover Your Passions</h1>
+            <p>What makes your heart come alive?</p>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Passion Indicators</h2>
+            <p style="color: var(--text); margin-bottom: 20px;">
+                Your passions are clues to your purpose. They're the things that energize you, 
+                that you can't stop thinking about, that make you lose track of time.
+            </p>
+        </div>
+
+        <div class="calling-worksheet">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 20px;">🔥 Passion Discovery Questions</h3>
+            
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>What breaks your heart?</strong><br>
+                    What injustices or needs in the world make you want to take action?
+                </p>
+                <textarea class="reflection-textarea" id="passion1" placeholder="Write your thoughts..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>What makes you come alive?</strong><br>
+                    When do you feel most energized and in your element?
+                </p>
+                <textarea class="reflection-textarea" id="passion2" placeholder="Write your thoughts..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>What would you do for free?</strong><br>
+                    If money wasn't a factor, how would you spend your time?
+                </p>
+                <textarea class="reflection-textarea" id="passion3" placeholder="Write your thoughts..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>What do others say you're passionate about?</strong><br>
+                    What do people notice that you talk about or engage with most?
+                </p>
+                <textarea class="reflection-textarea" id="passion4" placeholder="Write your thoughts..."></textarea>
+            </div>
+
+            <button class="btn-sunset" onclick="savePassions()" style="width: 100%; margin-top: 20px;">Save My Passions</button>
+        </div>
+
+        <div class="purpose-card">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 20px;">Common Passion Areas</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+                <div class="milestone-badge">🎨 Creative Arts</div>
+                <div class="milestone-badge">👨‍👩‍👧 Family & Relationships</div>
+                <div class="milestone-badge">📚 Teaching & Education</div>
+                <div class="milestone-badge">⚖️ Justice & Advocacy</div>
+                <div class="milestone-badge">🏥 Health & Healing</div>
+                <div class="milestone-badge">💼 Business & Innovation</div>
+                <div class="milestone-badge">🌍 Missions & Outreach</div>
+                <div class="milestone-badge">👥 Community Building</div>
+                <div class="milestone-badge">🎵 Worship & Music</div>
+                <div class="milestone-badge">💪 Leadership & Influence</div>
+            </div>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Calling Discovery Screen -->
+    <div id="callingScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Clarify Your Calling</h1>
+            <p>Where purpose meets opportunity</p>
+        </div>
+
+        <div class="scripture-highlight">
+            "And we know that in all things God works for the good of those who love him, 
+            who have been called according to his purpose."
+            <br><strong>- Romans 8:28</strong>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">The Calling Equation</h2>
+            <div style="text-align: center; padding: 20px; background: var(--light-violet); border-radius: 12px;">
+                <p style="font-size: 20px; color: var(--deep-indigo); font-weight: 600;">
+                    Spiritual Gifts + Passions + Opportunities + Confirmation = CALLING
+                </p>
+            </div>
+        </div>
+
+        <div class="calling-worksheet">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 20px;">📞 Calling Clarity Exercise</h3>
+            
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>Life Mission Statement</strong><br>
+                    In one sentence, what do you believe God is calling you to do?
+                </p>
+                <textarea class="reflection-textarea" id="missionStatement" placeholder="I believe God is calling me to..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>Target Audience</strong><br>
+                    Who specifically are you called to serve or impact?
+                </p>
+                <textarea class="reflection-textarea" id="targetAudience" placeholder="I feel called to serve..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>Kingdom Impact</strong><br>
+                    What change do you want to see in the world through your calling?
+                </p>
+                <textarea class="reflection-textarea" id="kingdomImpact" placeholder="I want to see..."></textarea>
+            </div>
+
+            <button class="btn-discover" onclick="saveCalling()" style="width: 100%; margin-top: 20px;">Save My Calling Statement</button>
+        </div>
+
+        <div class="purpose-card">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 20px;">Signs You're On Track</h3>
+            <ul style="line-height: 2.2; color: var(--text); margin-left: 20px;">
+                <li>✅ Your gifts are being used effectively</li>
+                <li>✅ You feel energized rather than drained</li>
+                <li>✅ Others confirm your calling</li>
+                <li>✅ Doors are opening supernaturally</li>
+                <li>✅ You see fruit from your efforts</li>
+                <li>✅ You have peace despite challenges</li>
+                <li>✅ Your work aligns with Scripture</li>
+            </ul>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Worksheets Screen -->
+    <div id="worksheetScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Purpose Worksheets</h1>
+            <p>Guided exercises for clarity</p>
+        </div>
+
+        <div class="calling-worksheet">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 20px;">📝 S.H.A.P.E. Assessment</h3>
+            <p style="color: var(--text); margin-bottom: 20px;">
+                Discover how God has uniquely shaped you for your purpose.
+            </p>
+            
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>S - Spiritual Gifts</strong><br>
+                    What spiritual gifts have you identified?
+                </p>
+                <textarea class="reflection-textarea" id="shape-s" placeholder="My spiritual gifts are..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>H - Heart/Passions</strong><br>
+                    What are you passionate about?
+                </p>
+                <textarea class="reflection-textarea" id="shape-h" placeholder="I'm passionate about..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>A - Abilities</strong><br>
+                    What natural talents and learned skills do you have?
+                </p>
+                <textarea class="reflection-textarea" id="shape-a" placeholder="My abilities include..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>P - Personality</strong><br>
+                    How has God wired your personality? (Introvert/Extrovert, Leader/Supporter, etc.)
+                </p>
+                <textarea class="reflection-textarea" id="shape-p" placeholder="My personality is..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>E - Experiences</strong><br>
+                    What life experiences have prepared you for your purpose?
+                </p>
+                <textarea class="reflection-textarea" id="shape-e" placeholder="My key experiences include..."></textarea>
+            </div>
+
+            <button class="btn-sunset" onclick="saveWorksheet('shape')" style="width: 100%; margin-top: 20px;">Save S.H.A.P.E. Assessment</button>
+        </div>
+
+        <div class="calling-worksheet" style="margin-top: 20px;">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 20px;">🎯 Sweet Spot Discovery</h3>
+            <p style="color: var(--text); margin-bottom: 20px;">
+                Your sweet spot is where these three circles overlap:
+            </p>
+            
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>What I Love to Do</strong><br>
+                    Activities that energize and excite you
+                </p>
+                <textarea class="reflection-textarea" id="sweet-love" placeholder="I love to..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>What I'm Good At</strong><br>
+                    Your natural strengths and developed skills
+                </p>
+                <textarea class="reflection-textarea" id="sweet-good" placeholder="I'm good at..."></textarea>
+            </div>
+
+            <div class="worksheet-prompt">
+                <p style="color: var(--text); margin-bottom: 10px;">
+                    <strong>What the World Needs</strong><br>
+                    Problems you can solve or needs you can meet
+                </p>
+                <textarea class="reflection-textarea" id="sweet-need" placeholder="The world needs..."></textarea>
+            </div>
+
+            <button class="btn-sunset" onclick="saveWorksheet('sweet')" style="width: 100%; margin-top: 20px;">Save Sweet Spot Discovery</button>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Journal Screen -->
+    <div id="journalScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Purpose Journal</h1>
+            <p>Document your discovery journey</p>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Today's Reflection</h2>
+            <p style="color: var(--text); margin-bottom: 20px;">
+                Record insights, prayers, and revelations about your purpose.
+            </p>
+            <textarea class="reflection-textarea" id="journalEntry" placeholder="Today I discovered..." style="min-height: 300px;"></textarea>
+            <button class="btn-discover" onclick="saveJournal()" style="width: 100%; margin-top: 15px;">Save Journal Entry</button>
+        </div>
+
+        <div class="purpose-card" style="background: linear-gradient(135deg, var(--light-violet), white);">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 20px;">Reflection Prompts</h3>
+            <ul style="line-height: 2.2; color: var(--text);">
+                <li>🌟 What has God been revealing to me about my purpose?</li>
+                <li>🌟 What fears are holding me back from pursuing my calling?</li>
+                <li>🌟 What confirmations have I received from others?</li>
+                <li>🌟 What doors are opening that align with my gifts?</li>
+                <li>🌟 How can I use my gifts to serve others this week?</li>
+                <li>🌟 What skills do I need to develop for my calling?</li>
+                <li>🌟 What is God asking me to surrender?</li>
+            </ul>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Next Steps Planner Screen -->
+    <div id="plannerScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Next Steps Action Plan</h1>
+            <p>Turn discovery into action</p>
+        </div>
+
+        <div class="scripture-highlight">
+            "In their hearts humans plan their course, but the Lord establishes their steps."
+            <br><strong>- Proverbs 16:9</strong>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">30-60-90 Day Action Plan</h2>
+            
+            <div class="step-card">
+                <div class="step-number">30</div>
+                <h3 style="color: var(--deep-indigo); margin-bottom: 10px;">Next 30 Days</h3>
+                <textarea class="reflection-textarea" id="plan30" placeholder="Immediate action steps..." style="min-height: 100px;"></textarea>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">60</div>
+                <h3 style="color: var(--deep-indigo); margin-bottom: 10px;">Next 60 Days</h3>
+                <textarea class="reflection-textarea" id="plan60" placeholder="Short-term goals..." style="min-height: 100px;"></textarea>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">90</div>
+                <h3 style="color: var(--deep-indigo); margin-bottom: 10px;">Next 90 Days</h3>
+                <textarea class="reflection-textarea" id="plan90" placeholder="Three-month milestones..." style="min-height: 100px;"></textarea>
+            </div>
+
+            <button class="btn-sunset" onclick="saveActionPlan()" style="width: 100%; margin-top: 20px;">Save Action Plan</button>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Ministry/Career Exploration Steps</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--sunset); margin-bottom: 15px;">🔍 Research Phase</h3>
+                <ul style="line-height: 2; color: var(--text); margin-left: 20px;">
+                    <li>Identify 3 roles that align with your gifts</li>
+                    <li>Interview someone in your field of interest</li>
+                    <li>Research education/training requirements</li>
+                    <li>Join relevant online communities</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--sunset); margin-bottom: 15px;">🌱 Experience Phase</h3>
+                <ul style="line-height: 2; color: var(--text); margin-left: 20px;">
+                    <li>Volunteer in your area of calling</li>
+                    <li>Shadow someone doing what you want to do</li>
+                    <li>Take on a small project or responsibility</li>
+                    <li>Attend conferences or workshops</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--sunset); margin-bottom: 15px;">🚀 Launch Phase</h3>
+                <ul style="line-height: 2; color: var(--text); margin-left: 20px;">
+                    <li>Create a portfolio or resume</li>
+                    <li>Apply for positions or start your ministry</li>
+                    <li>Build your network and connections</li>
+                    <li>Commit to continuous learning</li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Progress Screen -->
+    <div id="progressScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Your Purpose Progress</h1>
+            <p>Celebrating your discovery journey</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px;">
+            <div class="purpose-card" style="text-align: center;">
+                <div style="font-size: 36px; font-weight: 700; color: var(--indigo);" id="daysActive">0</div>
+                <div style="font-size: 12px; color: var(--text); text-transform: uppercase;">Days Active</div>
+            </div>
+            <div class="purpose-card" style="text-align: center;">
+                <div style="font-size: 36px; font-weight: 700; color: var(--sunset);" id="assessmentsComplete">0</div>
+                <div style="font-size: 12px; color: var(--text); text-transform: uppercase;">Assessments</div>
+            </div>
+            <div class="purpose-card" style="text-align: center;">
+                <div style="font-size: 36px; font-weight: 700; color: var(--violet);" id="journalCount">0</div>
+                <div style="font-size: 12px; color: var(--text); text-transform: uppercase;">Journal Entries</div>
+            </div>
+            <div class="purpose-card" style="text-align: center;">
+                <div style="font-size: 36px; font-weight: 700; color: var(--sky);" id="worksheetCount">0</div>
+                <div style="font-size: 12px; color: var(--text); text-transform: uppercase;">Worksheets</div>
+            </div>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Discovery Milestones</h2>
+            <div id="milestones"></div>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Your Purpose Summary</h2>
+            <div id="purposeSummary"></div>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Crisis Screen -->
+    <div id="crisisScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Purpose Crisis Support</h1>
+            <p>When direction feels unclear</p>
+        </div>
+
+        <div class="purpose-card" style="background: linear-gradient(135deg, #FEE2E2, #FFF5F5);">
+            <h2 style="color: #DC2626; margin-bottom: 15px;">⚠️ Feeling Lost?</h2>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                If you're experiencing a crisis of purpose or direction, remember that seasons of uncertainty are normal. 
+                God is still working even when the path seems unclear.
+            </p>
+            <p style="font-weight: bold; color: #DC2626;">
+                If you are in crisis, please contact your local helpline for immediate support.
+            </p>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">When Purpose Feels Unclear</h2>
+            <ul style="line-height: 2.2; color: var(--text); margin-left: 20px;">
+                <li>🙏 Keep serving where you are</li>
+                <li>🙏 Stay faithful in small things</li>
+                <li>🙏 Seek godly counsel and mentorship</li>
+                <li>🙏 Continue developing your gifts</li>
+                <li>🙏 Be patient with God's timing</li>
+                <li>🙏 Look for open doors, not just your plan</li>
+                <li>🙏 Remember: preparation seasons are valuable</li>
+            </ul>
+        </div>
+
+        <div class="scripture-highlight">
+            "Trust in the Lord with all your heart and lean not on your own understanding; 
+            in all your ways submit to him, and he will make your paths straight."
+            <br><strong>- Proverbs 3:5-6</strong>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Resources Screen -->
+    <div id="resourcesScreen" class="screen">
+        <div class="hero-header">
+            <button class="audio-toggle" onclick="toggleAudio()">🔊</button>
+            <h1>Purpose Resources</h1>
+            <p>Tools for your journey</p>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Spiritual Gifts Overview</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--sunset); margin-bottom: 10px;">Speaking Gifts</h3>
+                <ul style="line-height: 2; color: var(--text); margin-left: 20px;">
+                    <li><strong>Prophecy:</strong> Speaking God's truth with power</li>
+                    <li><strong>Teaching:</strong> Explaining and applying God's word</li>
+                    <li><strong>Exhortation:</strong> Encouraging and counseling others</li>
+                    <li><strong>Word of Wisdom:</strong> Godly insight for specific situations</li>
+                    <li><strong>Word of Knowledge:</strong> Supernatural understanding</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--sunset); margin-bottom: 10px;">Serving Gifts</h3>
+                <ul style="line-height: 2; color: var(--text); margin-left: 20px;">
+                    <li><strong>Service:</strong> Meeting practical needs</li>
+                    <li><strong>Helps:</strong> Supporting others in ministry</li>
+                    <li><strong>Administration:</strong> Organizing and managing</li>
+                    <li><strong>Giving:</strong> Generous financial support</li>
+                    <li><strong>Mercy:</strong> Compassionate care for hurting</li>
+                    <li><strong>Hospitality:</strong> Creating welcoming spaces</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--sunset); margin-bottom: 10px;">Leadership Gifts</h3>
+                <ul style="line-height: 2; color: var(--text); margin-left: 20px;">
+                    <li><strong>Leadership:</strong> Vision casting and direction</li>
+                    <li><strong>Apostleship:</strong> Pioneering new works</li>
+                    <li><strong>Evangelism:</strong> Sharing the gospel effectively</li>
+                    <li><strong>Pastor/Shepherd:</strong> Caring for God's people</li>
+                    <li><strong>Faith:</strong> Extraordinary trust in God</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="purpose-card">
+            <h2 style="color: var(--deep-indigo); margin-bottom: 20px;">Finding Your Fit</h2>
+            
+            <div style="padding: 20px; background: var(--light-violet); border-radius: 12px; margin-bottom: 20px;">
+                <h3 style="color: var(--deep-indigo); margin-bottom: 15px;">Ministry Opportunities</h3>
+                <p style="line-height: 1.8;">
+                    Children's Ministry • Youth Ministry • Worship Team • 
+                    Small Groups • Outreach • Missions • Prayer Ministry • 
+                    Hospitality Team • Tech/Media • Administration • 
+                    Counseling • Teaching • Discipleship
+                </p>
+            </div>
+
+            <div style="padding: 20px; background: var(--light-sunset); border-radius: 12px;">
+                <h3 style="color: var(--deep-indigo); margin-bottom: 15px;">Career Fields</h3>
+                <p style="line-height: 1.8;">
+                    Education • Healthcare • Business • Technology • 
+                    Arts/Creative • Non-Profit • Social Services • 
+                    Law/Justice • Communication • Science/Research • 
+                    Trades/Skills • Entrepreneurship
+                </p>
+            </div>
+        </div>
+
+        <button class="btn-secondary" onclick="showScreen('dashboardScreen')" style="width: 100%;">Back to Dashboard</button>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item" onclick="showScreen('dashboardScreen')">
+            <span class="icon">🏠</span>
+            <span class="label">Home</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('crisisScreen')">
+            <span class="icon">🆘</span>
+            <span class="label">Crisis</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('resourcesScreen')">
+            <span class="icon">📚</span>
+            <span class="label">Resources</span>
+        </div>
+        <div class="nav-item" onclick="showInfoModal()">
+            <span class="icon">ℹ️</span>
+            <span class="label">Info</span>
+        </div>
+        <div class="nav-item" onclick="showAboutModal()">
+            <span class="icon">✨</span>
+            <span class="label">About</span>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('infoModal')">×</button>
+            <h2 style="color: var(--deep-indigo); margin-bottom: 25px;">How to Use This App</h2>
+            
+            <h3 style="color: var(--sunset); margin-top: 25px;">What This App Does</h3>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                The Purpose & Calling Discovery app helps you identify your God-given gifts, 
+                passions, and calling through:
+            </p>
+            <ul style="line-height: 2.2; margin-bottom: 25px;">
+                <li>Spiritual gifts assessment to identify your strengths</li>
+                <li>Passion discovery exercises to find what drives you</li>
+                <li>Calling clarity worksheets to define your mission</li>
+                <li>S.H.A.P.E. and Sweet Spot assessments</li>
+                <li>Reflection journal for insights and prayers</li>
+                <li>90-day action planner for next steps</li>
+                <li>Progress tracking to celebrate growth</li>
+            </ul>
+
+            <h3 style="color: var(--sunset); margin-top: 25px;">Getting Started</h3>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                1. Take the Spiritual Gifts Assessment<br>
+                2. Complete the Passion Discovery questions<br>
+                3. Work through the Calling exercises<br>
+                4. Fill out the S.H.A.P.E. worksheet<br>
+                5. Journal your insights regularly<br>
+                6. Create your 30-60-90 day action plan
+            </p>
+
+            <h3 style="color: var(--sunset); margin-top: 25px;">Remember</h3>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                • Your purpose is already within you<br>
+                • Discovery is a journey, not a destination<br>
+                • God reveals purpose progressively<br>
+                • Start where you are with what you have<br>
+                • Your calling will align with God's Word
+            </p>
+
+            <h3 style="color: var(--sunset); margin-top: 25px;">Install on Your Phone</h3>
+            <p style="line-height: 1.8;">
+                <strong>iPhone:</strong> Tap Share → Add to Home Screen<br>
+                <strong>Android:</strong> Tap Menu (⋮) → Add to Home Screen
+            </p>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('aboutModal')">×</button>
+            <h2 style="color: var(--deep-indigo); margin-bottom: 25px;">About Purpose & Calling Discovery</h2>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h3 style="color: var(--sunset); margin-bottom: 15px;">Made with 🎯✨ by Justin</h3>
+                <p style="color: var(--text); font-size: 18px;">Depths to Heights</p>
+            </div>
+
+            <div class="scripture-highlight">
+                <strong>Our Mission:</strong><br>
+                To help believers discover their God-given gifts, clarify their calling, 
+                and create actionable plans for fulfilling their purpose in ministry and career.
+            </div>
+
+            <div style="margin: 30px 0;">
+                <p style="line-height: 1.8; color: var(--text);">
+                    At Depths to Heights, we believe every person has a unique purpose designed by God. 
+                    This app guides you through proven exercises and biblical principles to discover 
+                    how God has equipped you to make a difference in His kingdom.
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://depthstoheights.org" target="_blank" class="btn-secondary">
+                    Visit Our Website
+                </a>
+                <p style="margin: 20px 0; color: var(--text);">
+                    Contact: depthstoheights@gmail.com
+                </p>
+                <button class="btn-sunset" onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=8GRE7B8C3TP2U', '_blank')">
+                    Support Our Ministry
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAA==" type="audio/wav">
+    </audio>
+
+    <script>
+        // App State
+        let appState = {
+            currentScreen: 'welcomeScreen',
+            audioEnabled: false,
+            startDate: null,
+            giftAssessment: {},
+            passions: {},
+            calling: {},
+            worksheets: {},
+            journalEntries: [],
+            actionPlan: {},
+            completedSections: []
+        };
+
+        // Spiritual Gifts Questions
+        const giftQuestions = [
+            { id: 'teaching', question: 'I enjoy explaining Biblical truths to others', gift: 'Teaching' },
+            { id: 'service', question: 'I find joy in meeting practical needs', gift: 'Service' },
+            { id: 'leadership', question: 'I naturally take charge and guide groups', gift: 'Leadership' },
+            { id: 'mercy', question: 'I am drawn to help those who are hurting', gift: 'Mercy' },
+            { id: 'evangelism', question: 'I love sharing the gospel with non-believers', gift: 'Evangelism' },
+            { id: 'giving', question: 'I get excited about financially supporting ministry', gift: 'Giving' },
+            { id: 'administration', question: 'I excel at organizing and managing details', gift: 'Administration' },
+            { id: 'encouragement', question: 'I naturally encourage and build up others', gift: 'Encouragement' },
+            { id: 'wisdom', question: 'People seek my advice for difficult decisions', gift: 'Wisdom' },
+            { id: 'faith', question: 'I trust God even when circumstances look impossible', gift: 'Faith' },
+            { id: 'hospitality', question: 'I love creating welcoming spaces for people', gift: 'Hospitality' },
+            { id: 'prophecy', question: 'I feel compelled to speak God\'s truth boldly', gift: 'Prophecy' }
+        ];
+
+        // Daily Prompts
+        const dailyPrompts = [
+            "What unique perspective do you bring to every room you enter?",
+            "If you could solve one problem in the world, what would it be?",
+            "What activities make you lose track of time?",
+            "What compliments do you receive most often?",
+            "What would you attempt if you knew you couldn't fail?",
+            "What burden has God placed on your heart?",
+            "What skills come naturally to you that others find difficult?",
+            "What topics can you talk about for hours?",
+            "What injustice makes you want to take action?",
+            "What legacy do you want to leave behind?"
+        ];
+
+        // Initialize App
+        function initApp() {
+            loadState();
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+            
+            // Set daily prompt
+            const promptIndex = new Date().getDate() % dailyPrompts.length;
+            const promptEl = document.getElementById('dailyPrompt');
+            if (promptEl) {
+                promptEl.textContent = dailyPrompts[promptIndex];
+            }
+            
+            loadGiftQuestions();
+            updateProgress();
+        }
+
+        // Navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            appState.currentScreen = screenId;
+            
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Special screen updates
+            if (screenId === 'progressScreen') {
+                updateProgressStats();
+            }
+            
+            saveState();
+        }
+
+        function startJourney() {
+            if (!appState.startDate) {
+                appState.startDate = new Date().toISOString();
+            }
+            showScreen('dashboardScreen');
+            saveState();
+        }
+
+        // Spiritual Gifts Assessment
+        function loadGiftQuestions() {
+            const container = document.getElementById('giftQuestions');
+            if (!container) return;
+            
+            let html = '';
+            giftQuestions.forEach(q => {
+                html += `
+                    <div class="assessment-question">
+                        <p style="font-weight: 600; color: var(--deep-indigo); margin-bottom: 10px;">${q.question}</p>
+                        <div class="assessment-scale">
+                            ${[1,2,3,4,5].map(score => `
+                                <div class="scale-option" onclick="selectGiftAnswer('${q.id}', ${score})"
+                                     data-question="${q.id}" data-score="${score}">
+                                    ${score}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function selectGiftAnswer(questionId, score) {
+            appState.giftAssessment[questionId] = score;
+            
+            // Update UI
+            document.querySelectorAll(`[data-question="${questionId}"]`).forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-question="${questionId}"][data-score="${score}"]`).classList.add('selected');
+            
+            saveState();
+        }
+
+        function calculateGifts() {
+            const scores = {};
+            
+            // Calculate scores for each gift
+            giftQuestions.forEach(q => {
+                const score = appState.giftAssessment[q.id] || 0;
+                if (!scores[q.gift]) {
+                    scores[q.gift] = 0;
+                }
+                scores[q.gift] += score;
+            });
+            
+            // Sort gifts by score
+            const sortedGifts = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+            
+            // Display results
+            const resultsDiv = document.getElementById('giftResults');
+            resultsDiv.style.display = 'block';
+            
+            let html = '';
+            sortedGifts.forEach(([gift, score], index) => {
+                const percentage = Math.round((score / 5) * 100);
+                html += `
+                    <div class="gift-result">
+                        <h3 style="color: var(--indigo);">
+                            ${index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} ${gift}
+                        </h3>
+                        <div class="gift-score">${percentage}%</div>
+                        <p style="color: var(--text); line-height: 1.8;">
+                            This gift enables you to serve God and others effectively in this area.
+                        </p>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('topGifts').innerHTML = html;
+            
+            if (!appState.completedSections.includes('gifts')) {
+                appState.completedSections.push('gifts');
+            }
+            saveState();
+            updateProgress();
+            showSuccessMessage('Spiritual gifts assessment complete! Review your top gifts below.');
+        }
+
+        // Passions
+        function savePassions() {
+            const passions = {
+                breaks: document.getElementById('passion1').value,
+                alive: document.getElementById('passion2').value,
+                free: document.getElementById('passion3').value,
+                others: document.getElementById('passion4').value
+            };
+            
+            appState.passions = passions;
+            if (!appState.completedSections.includes('passions')) {
+                appState.completedSections.push('passions');
+            }
+            saveState();
+            updateProgress();
+            showSuccessMessage('Your passions have been saved!');
+        }
+
+        // Calling
+        function saveCalling() {
+            const calling = {
+                mission: document.getElementById('missionStatement').value,
+                audience: document.getElementById('targetAudience').value,
+                impact: document.getElementById('kingdomImpact').value
+            };
+            
+            appState.calling = calling;
+            if (!appState.completedSections.includes('calling')) {
+                appState.completedSections.push('calling');
+            }
+            saveState();
+            updateProgress();
+            showSuccessMessage('Your calling statement has been saved!');
+        }
+
+        // Worksheets
+        function saveWorksheet(type) {
+            if (type === 'shape') {
+                appState.worksheets.shape = {
+                    s: document.getElementById('shape-s').value,
+                    h: document.getElementById('shape-h').value,
+                    a: document.getElementById('shape-a').value,
+                    p: document.getElementById('shape-p').value,
+                    e: document.getElementById('shape-e').value
+                };
+            } else if (type === 'sweet') {
+                appState.worksheets.sweet = {
+                    love: document.getElementById('sweet-love').value,
+                    good: document.getElementById('sweet-good').value,
+                    need: document.getElementById('sweet-need').value
+                };
+            }
+            
+            if (!appState.completedSections.includes('worksheets')) {
+                appState.completedSections.push('worksheets');
+            }
+            saveState();
+            updateProgress();
+            showSuccessMessage('Worksheet saved successfully!');
+        }
+
+        // Journal
+        function saveJournal() {
+            const entry = document.getElementById('journalEntry').value;
+            if (!entry.trim()) {
+                document.getElementById('journalEntry').style.borderColor = '#EF4444';
+                return;
+            }
+            
+            appState.journalEntries.push({
+                date: new Date().toISOString(),
+                content: entry
+            });
+            
+            document.getElementById('journalEntry').value = '';
+            saveState();
+            updateProgress();
+            showSuccessMessage('Journal entry saved!');
+        }
+
+        // Action Plan
+        function saveActionPlan() {
+            appState.actionPlan = {
+                day30: document.getElementById('plan30').value,
+                day60: document.getElementById('plan60').value,
+                day90: document.getElementById('plan90').value
+            };
+            
+            if (!appState.completedSections.includes('planner')) {
+                appState.completedSections.push('planner');
+            }
+            saveState();
+            updateProgress();
+            showSuccessMessage('Your action plan has been saved!');
+        }
+
+        // Progress
+        function updateProgress() {
+            const total = 6; // Total sections
+            const completed = appState.completedSections.length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            // Update circle
+            const circle = document.getElementById('progressCircle');
+            const percentText = document.getElementById('progressPercent');
+            if (circle) {
+                const circumference = 408;
+                const offset = circumference - (percentage / 100) * circumference;
+                circle.style.strokeDashoffset = offset;
+            }
+            if (percentText) {
+                percentText.textContent = percentage + '%';
+            }
+        }
+
+        function updateProgressStats() {
+            // Days active
+            const startDate = appState.startDate ? new Date(appState.startDate) : new Date();
+            const today = new Date();
+            const daysActive = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            
+            document.getElementById('daysActive').textContent = daysActive;
+            document.getElementById('assessmentsComplete').textContent = 
+                (appState.completedSections.includes('gifts') ? 1 : 0) + 
+                (appState.completedSections.includes('passions') ? 1 : 0);
+            document.getElementById('journalCount').textContent = appState.journalEntries.length;
+            document.getElementById('worksheetCount').textContent = Object.keys(appState.worksheets).length;
+            
+            // Milestones
+            const milestones = [];
+            if (appState.completedSections.includes('gifts')) {
+                milestones.push('<div class="milestone-badge">🎁 Discovered Spiritual Gifts</div>');
+            }
+            if (appState.completedSections.includes('passions')) {
+                milestones.push('<div class="milestone-badge">🔥 Identified Passions</div>');
+            }
+            if (appState.completedSections.includes('calling')) {
+                milestones.push('<div class="milestone-badge">📞 Clarified Calling</div>');
+            }
+            if (appState.completedSections.includes('worksheets')) {
+                milestones.push('<div class="milestone-badge">📝 Completed Worksheets</div>');
+            }
+            if (appState.completedSections.includes('planner')) {
+                milestones.push('<div class="milestone-badge">🗺️ Created Action Plan</div>');
+            }
+            if (appState.journalEntries.length >= 5) {
+                milestones.push('<div class="milestone-badge">📔 Consistent Journaling</div>');
+            }
+            
+            const milestonesEl = document.getElementById('milestones');
+            if (milestonesEl) {
+                milestonesEl.innerHTML = milestones.join('') || '<p style="color: var(--slate);">Complete activities to earn milestones!</p>';
+            }
+            
+            // Purpose Summary
+            const summaryEl = document.getElementById('purposeSummary');
+            if (summaryEl && appState.calling.mission) {
+                summaryEl.innerHTML = `
+                    <div style="padding: 20px; background: var(--light-violet); border-radius: 12px;">
+                        <h3 style="color: var(--deep-indigo); margin-bottom: 10px;">Your Mission:</h3>
+                        <p style="line-height: 1.8; font-style: italic;">"${appState.calling.mission}"</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Utilities
+        function updateDateTime() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            const dashboardDate = document.getElementById('dashboardDate');
+            if (dashboardDate) {
+                dashboardDate.textContent = dateString;
+            }
+        }
+
+        function toggleAudio() {
+            appState.audioEnabled = !appState.audioEnabled;
+            const buttons = document.querySelectorAll('.audio-toggle');
+            buttons.forEach(btn => {
+                btn.textContent = appState.audioEnabled ? '🔇' : '🔊';
+            });
+        }
+
+        function showSuccessMessage(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = message;
+            successDiv.style.position = 'fixed';
+            successDiv.style.top = '20px';
+            successDiv.style.left = '50%';
+            successDiv.style.transform = 'translateX(-50%)';
+            successDiv.style.zIndex = '3000';
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        // Modals
+        function showInfoModal() {
+            document.getElementById('infoModal').classList.add('active');
+        }
+
+        function showAboutModal() {
+            document.getElementById('aboutModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Click outside modal to close
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // State Management
+        function saveState() {
+            localStorage.setItem('purposeCallingState', JSON.stringify(appState));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('purposeCallingState');
+            if (saved) {
+                appState = { ...appState, ...JSON.parse(saved) };
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('load', initApp);
+    </script>
+</body>
+</html>
